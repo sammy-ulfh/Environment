@@ -11,7 +11,7 @@ turquoiseColour="\e[0;36m\033[1m"
 grayColour="\e[0;37m\033[1m"
 
 #-----Variables-----#
-os=$(cat /etc/os-release | grep "NAME=" | head -n 1 | cut -d"=" -f 2 | tr -d '"')
+os=$(sed -nE "s/^[[:space:]]*NAME[[:space:]]*=[[:space:]]*(['\"]?)(.*)\1[[:space:]]*$/\2/p" /etc/os-release)
 
 #-----Functions-----#
 function banner() {
@@ -42,4 +42,8 @@ if [ "$(whoami)" == "root" ]; then
   exit 1
 fi
 
-$os
+banner
+echo -e "${greenColour}[+]${endColour} Your OS is: ${yellowColour}${os}${endColour}"
+echo -e "${greenColour}[+]${endColour} Selecting options for installing ${greenColour}autoPawnGu4rd${endColour} in the OS..."
+sleep 2
+echo -e "lol"
